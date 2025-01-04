@@ -8,8 +8,10 @@ https://create.roblox.com/store/asset/17386354664/Easy-UI-Tools
 
 If you encounter any bugs or wish to share some feedback, make sure to leave a comment.
 
-Thank you for using it!
+Thank you for using it! Also I would love to see some push requests that have improvements or even new features. The plugin will stay free on the github, but may be become paid access on the creator marketplace in the future.
 
+
+Note: There may are unfinished Features in the script, like the Z-Index Manager. Feel Free to work on them and make a push request.
 
 # Functions of the plugin:
 
