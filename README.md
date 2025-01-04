@@ -186,4 +186,14 @@ v1.0.4
 - Added Dropdown Menu to font Preference
 ```
 
+v1.0.5 - not released
+```
+	- Improved Preferences Frame UI
+	- Added Update Log History
+	- Added Plugin Scale Preference (0.8-1.2)
+	- Made UI Elements smaller for multiple reasons
+	- Validating Input in Preferences
+	- NEED TO DO: Store Font Correctly
+```
+
 If you want to support me feel free to purchase one of the gamepasses on [this game](https://www.roblox.com/games/11965802377/Cafe#!/store) (trough the roblox shop, not in-game):
