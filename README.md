@@ -13,6 +13,11 @@ Thank you for using it! Also I would love to see some push requests that have im
 
 Note: There may are unfinished Features in the script, like the Z-Index Manager. Feel Free to work on them and make a push request.
 
+# Files
+- EasyUIToolsMain.luau - Main Script for the plugin
+- ExploererFile.rbxm - import this into the roblox studio explorer if you want to edit the plugin
+- FinishedPluginForPluginsFolder.rbxmx - put this into the plugins folder to use the plugin
+
 # Functions of the plugin:
 
 ![image](https://github.com/user-attachments/assets/b2ec14a3-3cab-4585-9f33-345073ebf839)
