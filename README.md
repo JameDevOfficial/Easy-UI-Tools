@@ -83,9 +83,33 @@ Position and Anchor an UI Element at these Positions:
 ![image](https://github.com/user-attachments/assets/145affb6-04b1-4909-88ee-7fddcb8f2df8)
 ![image](https://github.com/user-attachments/assets/050312d0-e442-4c3e-bb9c-4eb75a7829ed)
 
-To head back from one of the 2 menus above to the main menu, click on the title
+To head back from one of the menus to the main menu, click on the title
 
 ![image](https://github.com/user-attachments/assets/3b92252b-24bd-41e3-bd38-79f110409bc2)
+
+**New Features PopUp:**
+Shows the update log for the newest version, has a "Okay!" Button to continue, and a update History Button to show the full history of updates in a scrolling frame.
+Only shows the first time after an update, don't worry about it appearing every time you start the plugin.
+
+![image](https://github.com/user-attachments/assets/9cf721b3-08ab-47ee-8265-ddf002ca1ca1)
+
+![image](https://github.com/user-attachments/assets/5863e704-2654-49a5-93c7-8848ba033824)
+
+**Small Tutorial:**
+When using the plugin for the first time, it prompts you to change your preferences
+
+![image](https://github.com/user-attachments/assets/1c297b3c-2dd0-4371-b23e-f565ccb922d1)
+
+
+**Version Control System:**
+The Plugin Checks for a new Version every 10 minutes and if it finds a new version, it will prompt the player to update his plugin.
+
+![image](https://github.com/user-attachments/assets/7730ff4a-2730-4d06-a81c-2cee47c0751c)
+
+The plugin still can be used in the old version, but it will have a Hint that tells the user, that his version is outdated.
+
+![image](https://github.com/user-attachments/assets/6885a2ca-4113-4606-93b3-a4596ea65122)
+
 
 
 # Version Log
