@@ -6,7 +6,8 @@ local recordings = {}
 local UserInputService = game:GetService("UserInputService")
 
 --Settings
-local GLOBAL_KEY_RUN = 10 --Testing Purpose only, public key is 6! --last used key before release: 10
+local DEBUG_MODE = false
+local GLOBAL_KEY_RUN = 12 --Testing Purpose only, public key is 6! --last used key before release: 10
 if GLOBAL_KEY_RUN ~= 6 then warn("GLOBAL_KEY_RUN is not the standard key! Change before public release!") end
 local Waypoints = true --Set to true if you want to make it so the latest change gets undid when the undo buttons are pressed. (CTRL+Z)
 local WaypointText = "EasyUITools" --Must enable Waypoints for this to be available.
@@ -25,9 +26,14 @@ local checkParents = 4 --How many Parents should be checked for ToolTip
 
 --CHS Handler
 CHS.OnRecordingStarted:Connect(function(name, displayName, identifier)
-	table.insert(recordings, { identifier = identifier, name = name })
+	table.insert(recordings, {
+		identifier = identifier,
+		name = name,
+		startTime = os.time()
+	})
 	print("Recording started:", identifier, name, displayName)
 end)
+
 
 CHS.OnRecordingFinished:Connect(function(name, displayName, identifier, operation, finalOptions)
 	for i, recording in pairs(recordings) do
@@ -41,20 +47,52 @@ end)
 
 -- Function to output the whole table
 local function printRecordingsTable()
+	if #recordings == 0 then
+		return
+	end
+	print("--------------------------------------------------------------------------------")
+	warn("Unfinished Recording, restart Studio if this Problem continues to exist.")
+	print("This may occured after a previous error that prevented the recording to finish.")
+	print("The System will try to auto-delete the unfinished Recording.")
 	print("Current Recordings Table:")
 	for i, recording in ipairs(recordings) do
 		print(i, "Identifier:", recording.identifier, "Name:", recording.name)
 	end
 	print("Total recordings:", #recordings)
+	print("--------------------------------------------------------------------------------")
 end
 
--- Task to output the whole table every 5 seconds
-task.spawn(function()
-	while true do
-		task.wait(10)
-		printRecordingsTable()
+local function clearOldRecordings()
+	local currentTime = os.time()
+	local newRecordings = {}
+
+	for _, recording in ipairs(recordings) do
+		if currentTime - recording.startTime <= 5 then
+			table.insert(newRecordings, recording)
+		else
+			if CHS:IsRecordingInProgress(recording.identifier) then
+				local success, errorMessage = pcall(function()
+					CHS:FinishRecording(recording.identifier, Enum.FinishRecordingOperation.Cancel)
+				end)
+				if success then
+					warn("Removed recording:", recording.identifier, recording.name)
+				else
+					warn("Failed to remove recording:", recording.identifier, recording.name, "Error:", errorMessage)
+					print("Please restart Roblox Studio now. If this issue persists, report it to the forum for this plugin on the Devforum.")
+					print("Easy UI Tools - JameDev")
+					return
+				end
+			else
+				warn("Recording already finished:", recording.identifier, recording.name)
+			end
+		end
 	end
-end)
+
+	recordings = newRecordings
+end
+
+
+
 
 
 --Create Plugin
@@ -80,7 +118,7 @@ local Enabled = false
 local widget = plugin:CreateDockWidgetPluginGui("ImportBasicLayout", widgetInfo)
 widget.Name = "Easy UI Tools"
 local GlobalWidget
--- test 
+
 local AccentColorKey = `AccentColorKey${GLOBAL_KEY_RUN}`
 local FontFaceKey = `FontFaceKey${GLOBAL_KEY_RUN}`
 local StrokeThicknessKey = `StrokeThicknessKey${GLOBAL_KEY_RUN}`
@@ -134,6 +172,31 @@ if plugin:GetSetting(AccentColorKey) ~= nil then
 	GlobalAccentColor = tostring(plugin:GetSetting(AccentColorKey))
 end
 
+local function PrintStoreValues()
+	if DEBUG_MODE then
+		warn("All Keys with their values:")
+		print("AccentColor: ", GlobalAccentColor, type(GlobalAccentColor))
+		print("FontFace: ", GlobalFontFace, type(GlobalFontFace))
+		print("StrokeThickness: ", GlobalStrokeThickness, type(GlobalStrokeThickness))
+		print("BorderRadius: ", GlobalBorderRadius, type(GlobalBorderRadius))
+		print("ToolTipShow: ", GlobalToolTipShow, type(GlobalToolTipShow))
+		print("UIScale: ", GlobalUIScaleSize, type(GlobalUIScaleSize))
+		print("LastVersionUsed: ", plugin:GetSetting(LastVersionUsedKey), type(plugin:GetSetting(LastVersionUsedKey)))
+		print("PluginScale: ", GlobalPluginScale, type(GlobalPluginScale))
+	end
+end
+
+if DEBUG_MODE == true then
+	task.spawn(function()
+		while true do
+			task.wait(10)
+			PrintStoreValues()
+			--printRecordingsTable()
+			--clearOldRecordings()
+		end
+	end)
+end
+
 --Tool Tip Check Functions
 local function tableContains(tbl, value)
 	for _, v in pairs(tbl) do
@@ -158,7 +221,6 @@ local function checkParentNames(obj, excludedNames)
 	return false
 end
 ------------------------------------------------------------------------------
-
 
 local recordingNum = 1
 
@@ -434,6 +496,41 @@ local function ImportBasicLayoutButtonClicked()
 				checkForUpdate()
 			end
 		end)
+		
+		--Update Plugin Scale--
+		local function ScalePlugin()
+			for i, v in ipairs(UI:GetDescendants()) do
+				if v:IsA("UIGridLayout") then
+					if not v:GetAttribute("StandardSize") then
+						v:SetAttribute("StandardSize", v.CellSize)
+					end
+					print(v.Name, ": ", v.CellSize)
+					v.CellSize = UDim2.new(
+						UDim.new(v:GetAttribute("StandardSize").X.Scale * GlobalPluginScale, v:GetAttribute("StandardSize").X.Offset * GlobalPluginScale),
+						UDim.new(v:GetAttribute("StandardSize").Y.Scale * GlobalPluginScale, v:GetAttribute("StandardSize").Y.Offset * GlobalPluginScale)
+					)
+					print(v.Name, ": ", v.CellSize)
+				end
+				if v.Name == "Title" and v:IsA("TextButton") then
+					if not v:GetAttribute("StandardSize") then
+						v:SetAttribute("StandardSize", v.Size)
+					end
+					print(v.Name, ": ", v.Size)
+					v.Size = UDim2.new(
+						v.Size.X.Scale,
+						v.Size.X.Offset,
+						v:GetAttribute("StandardSize").Y.Scale * GlobalUIScaleSize,
+						v:GetAttribute("StandardSize").Y.Offset * GlobalUIScaleSize
+					)
+					print(v:GetAttribute("StandardSize"))
+					print(v.Name, ": ", v.Size)
+				end
+				if v:IsA("TextButton") and v.Name ~= "Title" then
+					--- continue
+				end
+			end
+		end
+
 
 		---- Main UI ----
 		local MainUI = UI.MainScroll
@@ -957,36 +1054,7 @@ local function ImportBasicLayoutButtonClicked()
 				PluginScaleFrame.Selection.PlaceholderText = tostring(inputValue)
 				PluginScaleFrame.Selection.Text = ""
 				GlobalPluginScale = inputValue
-				for i, v in ipairs(UI:GetDescendants()) do
-					if v:IsA("UIGridLayout") then
-						if not v:GetAttribute("StandardSize") then
-							v:SetAttribute("StandardSize", v.CellSize)
-						end
-						print(v.Name, ": ", v.CellSize)
-						v.CellSize = UDim2.new(
-							UDim.new(v:GetAttribute("StandardSize").X.Scale * GlobalPluginScale, v:GetAttribute("StandardSize").X.Offset * GlobalPluginScale),
-							UDim.new(v:GetAttribute("StandardSize").Y.Scale * GlobalPluginScale, v:GetAttribute("StandardSize").Y.Offset * GlobalPluginScale)
-						)
-						print(v.Name, ": ", v.CellSize)
-					end
-					if v.Name == "Title" and v:IsA("TextButton") then
-						if not v:GetAttribute("StandardSize") then
-							v:SetAttribute("StandardSize", v.Size)
-						end
-						print(v.Name, ": ", v.Size)
-						v.Size = UDim2.new(
-							v.Size.X.Scale,
-							v.Size.X.Offset,
-							v:GetAttribute("StandardSize").Y.Scale * GlobalUIScaleSize,
-							v:GetAttribute("StandardSize").Y.Offset * GlobalUIScaleSize
-						)
-						print(v:GetAttribute("StandardSize"))
-						print(v.Name, ": ", v.Size)
-					end
-					if v:IsA("TextButton") and v.Name ~= "Title" then
-						---
-					end
-				end
+				ScalePlugin()
 			elseif PluginScaleFrame.Selection.Text ~= "" then
 				warn("Invalid Input: ", PluginScaleFrame.Selection.Text)
 				PluginScaleFrame.Selection.Text = ""
