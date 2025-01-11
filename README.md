@@ -80,7 +80,7 @@ Position and Anchor an UI Element at these Positions:
 - **Border Radius:** Change the standard Border Radius (in scale).
 - **Plugin Scale:** Change the Scale of the Elements in the Plugin. Perfect for smaller Screens or giant screens. Only supports values from 0.8 to 1.2
 
-![image](https://github.com/user-attachments/assets/db58b991-65a1-4a95-9809-4100471ac74e)
+![image](https://github.com/user-attachments/assets/fac72756-67e3-4cc7-8e64-aaa5ee3c71d7)
 
 
 **Tool Tip:**
@@ -94,6 +94,7 @@ To head back from one of the menus to the main menu, click on the title
 
 ![image](https://github.com/user-attachments/assets/3b92252b-24bd-41e3-bd38-79f110409bc2)
 
+
 **New Features PopUp:**
 Shows the update log for the newest version, has a "Okay!" Button to continue, and a update History Button to show the full history of updates in a scrolling frame.
 Only shows the first time after an update, don't worry about it appearing every time you start the plugin.
@@ -101,6 +102,7 @@ Only shows the first time after an update, don't worry about it appearing every 
 ![image](https://github.com/user-attachments/assets/9cf721b3-08ab-47ee-8265-ddf002ca1ca1)
 
 ![image](https://github.com/user-attachments/assets/5863e704-2654-49a5-93c7-8848ba033824)
+
 
 **Small Tutorial:**
 When using the plugin for the first time, it prompts you to change your preferences
@@ -116,6 +118,7 @@ The Plugin Checks for a new Version every 10 minutes and if it finds a new versi
 The plugin still can be used in the old version, but it will have a Hint that tells the user, that his version is outdated.
 
 ![image](https://github.com/user-attachments/assets/6885a2ca-4113-4606-93b3-a4596ea65122)
+
 
 **HTTP Permissions Hint**
 The Plugin prompts the user with an info widget that tells him why this plugin uses HTTP requests and why they should allow it. (optional)
