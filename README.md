@@ -185,12 +185,12 @@ v1.0.0:
 
 v1.0.1:	
 ```
-- Fixed a few bugs and made it work without Beta Feature UIListLayout Flex Features
+	- Fixed a few bugs and made it work without Beta Feature UIListLayout Flex Features
 ```
 
 v1.0.2:
 ```
-- Made Fast Scale work, when the GuiObject is in another GuiObject (did not work properly before)
+	- Made Fast Scale work, when the GuiObject is in another GuiObject (did not work properly before)
 	- Made Constraint work, when the GUiObject is in another GuiObject (did not work properly before)
 	- Made Inserting UI have white background, a normal size (not 0,0,0,0) and no border
 	- Removed "Reclass UI" and its "Coming Soon" text, because it was useless and probably not coming to soon, since this isn't a priority
@@ -214,17 +214,20 @@ v1.0.3
 
 v1.0.4
 ```
-- Added Dropdown Menu to font Preference
+	- Added Dropdown Menu to font Preference
 ```
 
-v1.0.5 - not released
+v1.0.5
 ```
 	- Improved Preferences Frame UI
-	- Added Update Log History
+	- Added Update Log History (Buggy Padding)
 	- Added Plugin Scale Preference (0.8-1.2)
+	- Added Plugin Theme Preference
 	- Made UI Elements smaller for multiple reasons
 	- Validating Input in Preferences
-	- NEED TO DO: Store Font Correctly
+	- Fixed Errors related to Font Preference
+	- Improved Plugin Stability
+	- PopUp that explains HTTP Request Access for Analytics
 ```
 
 If you want to support me feel free to purchase one of the gamepasses on [this game](https://www.roblox.com/games/11965802377/Cafe#!/store) (trough the roblox shop, not in-game):
