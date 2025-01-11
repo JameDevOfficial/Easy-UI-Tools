@@ -117,6 +117,11 @@ The plugin still can be used in the old version, but it will have a Hint that te
 
 ![image](https://github.com/user-attachments/assets/6885a2ca-4113-4606-93b3-a4596ea65122)
 
+**HTTP Permissions Hint**
+The Plugin prompts the user with an info widget that tells him why this plugin uses HTTP requests and why they should allow it. (optional)
+
+![image](https://github.com/user-attachments/assets/24dc5490-1b85-4a84-b9e8-73f8a4b70a47)
+
 
 
 # Version Log
